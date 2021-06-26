@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\PasswordFormType;
 use App\Form\ProfileFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,11 +23,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     private $em;
+    /**
+     * @var FlashyNotifier
+     */
+    private $flashyNotifier;
 
     public function __construct(
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        FlashyNotifier $flashyNotifier
     ) {
         $this->em = $em;
+        $this->flashyNotifier = $flashyNotifier;
     }
 
     /**
@@ -43,7 +50,7 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
 
-            $this->addFlash('success', 'The profile was updated with success');
+            $this->flashyNotifier->success('The profile was updated with success');
 
             return $this->redirectToRoute('app_profile_index');
         }
@@ -59,7 +66,7 @@ class ProfileController extends AbstractController
     public function updatePassword(Request $request, UserPasswordHasherInterface  $hasher) {
         /** @var User $user */
         $user = $this->getUser();
-        $form = $this->createForm(PasswordFormType::class);
+        $form = $this->createForm(PasswordFormType::class, $user);
 
         $form->handleRequest($request);
 
@@ -69,7 +76,7 @@ class ProfileController extends AbstractController
 
             $this->em->flush();
 
-            $this->addFlash('success', 'The password was updated with success !');
+            $this->flashyNotifier->success('The password was updated with success !');
 
             return $this->redirectToRoute('app_profile_update_password');
         }
