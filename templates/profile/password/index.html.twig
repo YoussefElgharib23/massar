@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Update your profile password' %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <h1 class="text-center">Update your password</h1>
+        <a href="{{ path('app_profile_index') }}">Update your profile</a>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Update password" class="btn btn-primary">
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
