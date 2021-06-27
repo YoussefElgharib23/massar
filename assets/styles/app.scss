@@ -3,5 +3,20 @@
 
 @import "./libs/login";
 @import "./libs/toast";
+@import "./libs/_navbar";
 
 * { font-family: 'Poppins', sans-serif; }
+
+._is_btn {
+  transition: .3s all ease-in-out;
+  @extend .rounded-3, .bg-white;
+  color: black !important;
+}
+
+._is_btn:hover {
+  @extend .shadow;
+}
+
+._main {
+  padding: 4rem 0;
+}
