@@ -3,6 +3,7 @@
 {% block title %}Your profile{% endblock %}
 
 {% block body %}
+	{{ include('partials/_navbar.html.twig') }}
 	<div class="container mt-4">
 		<h1 class="text-center">Update your public profile</h1>
 		<a href="{{ path('app_profile_update_password') }}">Update password</a>
