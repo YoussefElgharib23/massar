@@ -15,8 +15,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class ProfileController
- * @package App\Controller\Shared
+ * Class ProfileController.
+ *
  * @IsGranted("ROLE_USER")
  * @Route("/profile", name="app_profile_")
  */
@@ -63,7 +63,8 @@ class ProfileController extends AbstractController
     /**
      * @Route("/password/update", name="update_password", methods={"GET", "POST"})
      */
-    public function updatePassword(Request $request, UserPasswordHasherInterface  $hasher) {
+    public function updatePassword(Request $request, UserPasswordHasherInterface $hasher)
+    {
         /** @var User $user */
         $user = $this->getUser();
         $form = $this->createForm(PasswordFormType::class, $user);
