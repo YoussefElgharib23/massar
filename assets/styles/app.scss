@@ -1,11 +1,11 @@
 @import "~bootstrap/scss/bootstrap";
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 @import "./libs/login";
 @import "./libs/toast";
 @import "./libs/_navbar";
 
-* { font-family: 'Poppins', sans-serif; }
+* { font-family: 'Montserrat', sans-serif; }
 
 ._is_btn {
   transition: .3s all ease-in-out;
