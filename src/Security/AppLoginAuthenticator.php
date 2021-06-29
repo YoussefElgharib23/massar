@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +25,12 @@ class AppLoginAuthenticator extends AbstractLoginFormAuthenticator
 
     private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    private FlashyNotifier $flashyNotifier;
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, FlashyNotifier $flashyNotifier)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->flashyNotifier = $flashyNotifier;
     }
 
     public function authenticate(Request $request): PassportInterface
@@ -49,6 +53,8 @@ class AppLoginAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
+
+        $this->flashyNotifier->success('Welcome back !');
 
         // For example:
         return new RedirectResponse($this->urlGenerator->generate('app_index'));
